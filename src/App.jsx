@@ -10,6 +10,7 @@ function App() {
 
   {/* Content */}
   {/* <HomePage /> */}
+  <h2>king azam</h2>
 
   {/* Footer */}
   {/* <Footer /> */}
