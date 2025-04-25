@@ -1,7 +1,7 @@
 const HomePage = () => {
     return (
       <div>
-        <h2>ntnt</h2>
+        <h2>kerass</h2>
         {/* <label htmlFor="weight"></label>
         <h2>Healty-BMI</h2>
         <label For="weight"> bobot (kg)</label>
