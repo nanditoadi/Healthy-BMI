@@ -11,10 +11,55 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+    <script>
+      function calculateBMI() {
+        // Get input values
+        const weight = parseFloat(document.getElementById('weight').value);
+        const height = parseFloat(document.getElementById('height').value);
+    
+        // Validate inputs
+        if (isNaN(weight)) {
+          alert("masukin bobot yg bener king");
+          return;
+        }
+    
+        if (isNaN(height)) {
+          alert("masukin tinggi yg bener king");
+          return;
+        }
+    
+        if (weight <= 0 || height <= 0) {
+          alert("masukin tinggi sama bobot yg bener king");
+          return;
+        }
+    
+        // Calculate BMI (weight in kg / height in meters squared)
+        const heightInMeters = height / 100; // convert cm to meters
+        const bmi = weight / (heightInMeters * heightInMeters);
+    
+        // Display result
+        const resultElement = document.getElementById('result');
+        resultElement.innerHTML = `BMI-mu segini king: ${bmi.toFixed(2)}`;
+    
+        // Add interpretation
+        let interpretation = "";
+        if (bmi < 18.5) {
+          interpretation = "gepeng king";
+        } else if (bmi >= 18.5 && bmi < 25) {
+          interpretation = "keras normal king";
+        } else {
+          interpretation = "gendut king ntnt";
+        }
+    
+        resultElement.innerHTML += `<br>kategori: ${interpretation}`;
+      }
+    </script>
+
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
-    <!-- <h1>ntnt</h1> -->
+        <button onclick="calculateBMI()">hitung BMI</button>
+        <div id="result"></div>
   </body>
 </html>
