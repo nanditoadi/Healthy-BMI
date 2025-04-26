@@ -8,6 +8,8 @@ const HomePage = () => {
         <br />
         <label for="height">tinggi (cm):</label>
         <input type="number" id="height" placeholder="tinggi (cm)"></input>
+        <label for="appt-time">Choose a time:</label>
+        <input type="time" id="appt-time" name="appt-time"></input>
     </div>
     
   )
