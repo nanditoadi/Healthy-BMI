@@ -1,7 +1,7 @@
 // HomePage.jsx
 import React, { useState } from 'react';
 
-const HomePage = ({ calculateBMI, bmiResult }) => {
+const HomePage = ({ calculateBMI, bmiResult, interpretation }) => {
   // State untuk menyimpan input dari pengguna
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
@@ -10,8 +10,6 @@ const HomePage = ({ calculateBMI, bmiResult }) => {
   const handleCalculate = () => {
     calculateBMI(weight, height);
   };
-
-  
 
   return (
     <div>
@@ -37,7 +35,9 @@ const HomePage = ({ calculateBMI, bmiResult }) => {
       <button onClick={handleCalculate}>Hitung BMI</button>
       <div id="result">{bmiResult && <p>BMI kamu segini king: {bmiResult}</p>}</div>
       <br />
-      <div id='resultplus'></div>
+      <div id='comment'>
+        {interpretation && <p>{interpretation}</p>}
+      </div>
 
       <div className="kritik-saran">
         <h1>Kritik & Saran</h1>

@@ -16,19 +16,19 @@ function App() {
     }
   };
 
-  // const resultElement = document.getElementById('resultplus');
+  const resultElement = document.getElementById('comment');
     
-  //   // Add interpretation
-  //   let interpretation = "";
-  //   if (bmiResult < 18.5) {
-  //   interpretation = "gepeng king";
-  //   } else if (bmiResult >= 18.5 && bmiResult < 25) {
-  //     interpretation = "keras normal king";
-  //   } else {
-  //     interpretation = "gendut king ntnt";
-  //   }
+    // Add interpretation
+    let interpretation = "";
+    if (bmiResult < 18.5) {
+    interpretation = "gepeng king";
+    } else if (bmiResult >= 18.5 && bmiResult < 25) {
+      interpretation = "keras normal king";
+    } else {
+      interpretation = "gendut king ntnt";
+    }
     
-  //   resultElement.innerHTML += `<br>kategori: ${interpretation}`;
+    // resultElement.innerHTML += `<br>kategori: ${interpretation}`;
   
   return <div>
 
