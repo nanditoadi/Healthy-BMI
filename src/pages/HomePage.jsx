@@ -11,6 +11,8 @@ const HomePage = ({ calculateBMI, bmiResult }) => {
     calculateBMI(weight, height);
   };
 
+  
+
   return (
     <div>
       <h2>BMI Calculator</h2>
@@ -33,7 +35,9 @@ const HomePage = ({ calculateBMI, bmiResult }) => {
       />
       <br />
       <button onClick={handleCalculate}>Hitung BMI</button>
-      <div id="result">{bmiResult && <p>Your BMI: {bmiResult}</p>}</div>
+      <div id="result">{bmiResult && <p>BMI kamu segini king: {bmiResult}</p>}</div>
+      <br />
+      <div id='resultplus'></div>
 
       <div className="kritik-saran">
         <h1>Kritik & Saran</h1>
