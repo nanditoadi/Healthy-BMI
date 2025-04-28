@@ -1,18 +1,45 @@
+// HomePage.jsx
+import React, { useState } from 'react';
 
-const HomePage = () => {
+const HomePage = ({ calculateBMI, bmiResult }) => {
+  // State untuk menyimpan input dari pengguna
+  const [weight, setWeight] = useState('');
+  const [height, setHeight] = useState('');
+
+  // Event handler untuk menghitung BMI
+  const handleCalculate = () => {
+    calculateBMI(weight, height);
+  };
+
   return (
-    <div>HomePage
-        <h2>BMI Calculator</h2>
-        <label for="weight">bobot (kg):</label>
-        <input type="number" id="weight" placeholder="bobot (kg)"></input>
-        <br />
-        <label for="height">tinggi (cm):</label>
-        <input type="number" id="height" placeholder="tinggi (cm)"></input>
-        <label for="appt-time">Choose a time:</label>
-        <input type="time" id="appt-time" name="appt-time"></input>
-    </div>
-    
-  )
-}
+    <div>
+      <h2>BMI Calculator</h2>
+      <label htmlFor="weight">Bobot (kg):</label>
+      <input
+        type="number"
+        id="weight"
+        value={weight}
+        onChange={(e) => setWeight(e.target.value)}
+        placeholder="Bobot (kg)"
+      />
+      <br />
+      <label htmlFor="height">Tinggi (cm):</label>
+      <input
+        type="number"
+        id="height"
+        value={height}
+        onChange={(e) => setHeight(e.target.value)}
+        placeholder="Tinggi (cm)"
+      />
+      <br />
+      <button onClick={handleCalculate}>Hitung BMI</button>
+      <div id="result">{bmiResult && <p>Your BMI: {bmiResult}</p>}</div>
 
-export default HomePage
+      <div className="kritik-saran">
+        <h1>Kritik & Saran</h1>
+      </div>
+    </div>
+  );
+};
+
+export default HomePage;
