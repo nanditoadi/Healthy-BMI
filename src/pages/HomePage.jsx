@@ -1,7 +1,7 @@
 // HomePage.jsx
 import React, { useState } from 'react';
 
-const HomePage = ({ calculateBMI, bmiResult, interpretation }) => {
+const HomePage = ({ calculateBMI, bmiResult }) => {
   // State untuk menyimpan input dari pengguna
   const [weight, setWeight] = useState('');
   const [height, setHeight] = useState('');
@@ -10,7 +10,7 @@ const HomePage = ({ calculateBMI, bmiResult, interpretation }) => {
   const handleCalculate = () => {
     calculateBMI(weight, height);
   };
-}
+
 
   // komentar untuk tiap range bmi
   let resultContent;
@@ -28,52 +28,6 @@ const HomePage = ({ calculateBMI, bmiResult, interpretation }) => {
     resultContent = <p>Hitung BMI Dulu King</p>
   }
 
-  // event handler kirim form
-  const FeedbackForm = () => {
-    // State untuk menyimpan data input form
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [feedback, setFeedback] = useState("");
-    const [message, setMessage] = useState(""); // Untuk menampilkan pesan status
-  
-    // Fungsi untuk menangani submit form
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
-      // Validasi sederhana
-      if (!name || !email || !feedback) {
-        setMessage("Harap isi semua kolom!");
-        return;
-      }
-  
-      // Kirim data ke server menggunakan fetch atau axios
-      const data = {
-        name,
-        email,
-        feedback,
-      };
-  
-      try {
-        const response = await fetch("/api/feedback", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        });
-  
-        if (response.ok) {
-          setMessage("Kritik dan saran Anda telah terkirim!");
-          setName("");
-          setEmail("");
-          setFeedback("");
-        } else {
-          setMessage("Terjadi kesalahan, coba lagi nanti.");
-        }
-      } catch (error) {
-        setMessage("Terjadi kesalahan jaringan.");
-      }
-    };
 
   return (
     <div>
@@ -82,7 +36,7 @@ const HomePage = ({ calculateBMI, bmiResult, interpretation }) => {
       <input
         type="number"
         id="weight"
-        value={weight}
+        //value={weight}
         onChange={(e) => setWeight(e.target.value)}
         placeholder="Bobot (kg)"
       />
@@ -91,7 +45,7 @@ const HomePage = ({ calculateBMI, bmiResult, interpretation }) => {
       <input
         type="number"
         id="height"
-        value={height}
+        //{/* value={height} */}
         onChange={(e) => setHeight(e.target.value)}
         placeholder="Tinggi (cm)"
       />
@@ -106,25 +60,7 @@ const HomePage = ({ calculateBMI, bmiResult, interpretation }) => {
 
       <div className="kritik-saran">
         <h1>Kritik & Saran</h1>
-        <form onSubmit={handleSubmit} method="post">
-          <label htmlFor="name">Nama:</label>
-          <br />
-          <input type="text" name="name" id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder='Nama' required/>
-          <br />
-
-          <label htmlFor="email">Email:</label>
-          <br />
-          <input type="email" name="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email' required/>
-          <br />
-
-          <label htmlFor="feedback">Kritik dan Saran:</label>
-          <br />
-          <textarea name="feedback" id="feedback" value={feedback} onChange={(e) => setFeedback(e.target.value)} rows={4} placeholder='Kritik dan Saran'required></textarea>
-          <br />
-
-          <button type="submit">Kirim</button>
-        </form>
-        {message && <p>{message}</p>}
+        
       </div>
     </div>
   );
