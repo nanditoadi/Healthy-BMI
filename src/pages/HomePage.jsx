@@ -11,7 +11,6 @@ const HomePage = ({ calculateBMI, bmiResult }) => {
     calculateBMI(weight, height);
   };
 
-
   // komentar untuk tiap range bmi
   let resultContent;
   if (bmiResult < 18.5 && bmiResult > 0) {
@@ -28,7 +27,6 @@ const HomePage = ({ calculateBMI, bmiResult }) => {
     resultContent = <p>Hitung BMI Dulu King</p>
   }
 
-
   return (
     <div>
       <h2>BMI Calculator</h2>
@@ -36,7 +34,6 @@ const HomePage = ({ calculateBMI, bmiResult }) => {
       <input
         type="number"
         id="weight"
-        //value={weight}
         onChange={(e) => setWeight(e.target.value)}
         placeholder="Bobot (kg)"
       />
@@ -45,7 +42,6 @@ const HomePage = ({ calculateBMI, bmiResult }) => {
       <input
         type="number"
         id="height"
-        //{/* value={height} */}
         onChange={(e) => setHeight(e.target.value)}
         placeholder="Tinggi (cm)"
       />
