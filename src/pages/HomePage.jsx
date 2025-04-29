@@ -11,6 +11,21 @@ const HomePage = ({ calculateBMI, bmiResult, interpretation }) => {
     calculateBMI(weight, height);
   };
 
+  let resultContent;
+  if (bmiResult < 18.5 && bmiResult > 0) {
+    resultContent = <div>
+      <p>Gepeng Banget King</p>
+      <p>no ingfo krass</p>
+      <p>Makan Yang Banyak King Ben Ora Gepeng nemen lhoh ntnt yakin</p>
+      </div>;
+  } else if (bmiResult >= 18.5 && bmiResult < 25){
+    resultContent = <p>Keras Normal King</p>;
+  } else if (bmiResult >= 25){
+    resultContent = <p>Gendut King NTNT</p>
+  } else {
+    resultContent = <p>Hitung BMI Dulu King</p>
+  }
+
   return (
     <div>
       <h2>BMI Calculator</h2>
@@ -34,10 +49,11 @@ const HomePage = ({ calculateBMI, bmiResult, interpretation }) => {
       <br />
       <button onClick={handleCalculate}>Hitung BMI</button>
       <div id="result">{bmiResult && <p>BMI kamu segini king: {bmiResult}</p>}</div>
-      <br />
-      <div id='comment'>
-        {interpretation && <p>{interpretation}</p>}
+
+      <div id="results">
+        {resultContent}
       </div>
+      <br />
 
       <div className="kritik-saran">
         <h1>Kritik & Saran</h1>

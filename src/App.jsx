@@ -4,7 +4,7 @@ import HomePage from "./pages/HomePage"
 import React, { useState } from 'react';
 
 function App() {
-  const [bmiResult, setBmiResult] = useState('');
+  const [bmiResult=0, setBmiResult] = useState('');
 
   const calculateBMI = (weight, height) => {
     if (weight && height) {
@@ -16,19 +16,7 @@ function App() {
     }
   };
 
-  const resultElement = document.getElementById('comment');
-    
-    // Add interpretation
-    let interpretation = "";
-    if (bmiResult < 18.5) {
-    interpretation = "gepeng king";
-    } else if (bmiResult >= 18.5 && bmiResult < 25) {
-      interpretation = "keras normal king";
-    } else {
-      interpretation = "gendut king ntnt";
-    }
-    
-    // resultElement.innerHTML += `<br>kategori: ${interpretation}`;
+
   
   return <div>
 
