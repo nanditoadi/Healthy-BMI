@@ -1,5 +1,6 @@
 // HomePage.jsx
 import React, { useState } from 'react';
+// import Image "../public"
 
 const HomePage = ({ calculateBMI, bmiResult }) => {
   // State untuk menyimpan input dari pengguna
@@ -18,6 +19,7 @@ const HomePage = ({ calculateBMI, bmiResult }) => {
       <p>Gepeng Banget King</p>
       <p>no ingfo krass</p>
       <p>Makan Yang Banyak King Ben Ora Gepeng nemen lhoh ntnt yakin</p>
+      <img src="../../public/logotab.png" alt="" />
       </div>;
   } else if (bmiResult >= 18.5 && bmiResult < 25){
     resultContent = <p>Keras Normal King</p>;
