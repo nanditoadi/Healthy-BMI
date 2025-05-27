@@ -12,7 +12,7 @@ function App() {
       const bmi = weight / (heightInMeter * heightInMeter);
       setBmiResult(bmi.toFixed(2)); // Menyimpan hasil BMI
     } else {
-      alert("Masukin tinggi sama bobot yang bener king");
+      alert("Masukin tinggi sama bobot yang bener king aku turu king");
     }
   };
 
