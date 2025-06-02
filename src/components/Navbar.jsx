@@ -43,12 +43,12 @@ const Navbar = () => {
             </li>
             <li className="flex items-center gap-3">
               <i className="ri-stack-line text-3xl md:hidden block"></i>
-              <a href="#"className="font-medium opacity-75">
+              <a href="#about" onClick={handleClick} className="font-medium opacity-75">
                  Tentang BMI</a> 
             </li>
             <li className="flex items-center gap-3">
               <i className="ri-service-line text-3xl md:hidden block"></i>
-              <a href="#"className="font-medium opacity-75">
+              <a href="#cekbmi"className="font-medium opacity-75">
                 Cek BMI</a> 
             </li>
             <li className="flex items-center gap-3">
