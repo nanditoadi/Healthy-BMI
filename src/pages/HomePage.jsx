@@ -176,8 +176,13 @@ const HomePage = () => {
       </div>
     );
   } else {
-    resultContent = <p className="text-center mt-4">Hitung BMI Dulu King</p>
-    ;
+   resultContent = (
+    <div className="text-center mt-2 px-1">
+      <p className="text-lg font-semibold text-gray-700 mb-0">
+        Masukkan tinggi badan dan berat badan Anda untuk menghitung BMI!
+      </p>
+    </div>
+  );
   }
 
 
@@ -190,7 +195,9 @@ const HomePage = () => {
               Cek <span className="font-bold text-000000 ">BMI</span> Sekarang
             </h1>
             <p className="text-base/8 mb-7 ">Temukan <span className="font-semibold text-000000">Rekomendasi Khusus untuk Anda</span></p>
-            <a href="#cekbmi" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#F9EC7D] to-[#F5B100] hover:opacity-90 shadow-[0_4px_20px_rgba(245,177,0,0.5)] tranisiton-all px-4 py-2 text-black font-semibold  shadow rounded-full w-auto ">
+            <a href="#cekbmi" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#F9EC7D] to-[#F5B100] hover:opacity-95 hover:scale-105 shadow-lg font-semibold px-6 py-3 
+             text-black rounded-full w-auto transition-all duration-300 ease-in-out 
+             hover:shadow-2xl ">
               Cek BMI Sekarang <i className="w-6 h-6 bg-black rounded-full flex items-center justify-center ri-arrow-right-wide-line text-white ms-1"></i>
             </a>
           </div>
@@ -205,7 +212,8 @@ const HomePage = () => {
               Apa itu <span className="font-bold">BMI</span>?
             </h1>
 
-            <div className="inline-block bg-[#C7DEFF] text-black font-bold px-6 py-3 rounded-3xl mb-7 text-lg">
+            <div className="inline-block bg-[#C7DEFF] text-black font-bold px-6 py-3 rounded-3xl mb-7 text-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg 
+               hover:bg-[#A0C7FF]">
               BMI (Body Mass Index)
             </div>
 
@@ -223,7 +231,8 @@ const HomePage = () => {
 
         <div id="cekbmi" className="cekbmi pt-32">
           <div className="text-center">
-            <h1 className="inline-block bg-[#C7DEFF] text-black font-bold px-6 py-3 rounded-3xl mb-7 text-lg">
+            <h1 className="inline-block bg-[#C7DEFF] text-black font-bold px-6 py-3 rounded-3xl mb-7 text-lg transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-xl
+               hover:bg-[#A0C7FF]">
             Kalkulator BMI
             </h1>
           </div>
@@ -270,7 +279,7 @@ const HomePage = () => {
                 {/* Tombol Hitung */}
                 <button 
                   onClick={handleCalculate}
-                  className="bg-gradient-to-r from-yellow-200 to-yellow-500 hover:opacity-90 shadow-md font-bold w-full py-2 rounded mb-6"
+                  className="bg-gradient-to-r from-yellow-200 to-yellow-500 hover:opacity-90 shadow-lg font-bold w-full py-3 rounded-full mb-6 transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-xl"
                 >
                   HITUNG BMI
                 </button>
