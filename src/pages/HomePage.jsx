@@ -149,7 +149,7 @@ const HomePage = () => {
               Cek <span className="font-bold text-000000 ">BMI</span> Sekarang
             </h1>
             <p className="text-base/8 mb-7 ">Temukan <span className="font-semibold text-000000">Rekomendasi Khusus untuk Anda</span></p>
-            <a href="#" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#F9EC7D] to-[#F5B100] hover:opacity-90 shadow-[0_4px_20px_rgba(245,177,0,0.5)] tranisiton-all px-4 py-2 text-black font-semibold  shadow rounded-full w-auto ">
+            <a href="#cekbmi" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#F9EC7D] to-[#F5B100] hover:opacity-90 shadow-[0_4px_20px_rgba(245,177,0,0.5)] tranisiton-all px-4 py-2 text-black font-semibold  shadow rounded-full w-auto ">
                Cek BMI Sekarang <i className="w-6 h-6 bg-black rounded-full flex items-center justify-center ri-arrow-right-wide-line text-white ms-1"></i>
             </a>
           </div>
