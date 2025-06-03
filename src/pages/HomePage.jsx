@@ -2,6 +2,7 @@ import HeroImage from "../assets/coba.svg";
 import AboutImage from "../assets/komponen orang.svg";
 import orangsakitImage from "../assets/orang sakit.svg";
 import { useState } from 'react';
+import KritikSaranForm from './KritikSaranForm'; // Impor komponen form
 
 
 
@@ -194,7 +195,7 @@ const HomePage = () => {
           </div>
           <div className="flex justify-center items-center gap-20">
             {/* Box BMI Calculator */}
-            <div className="bg-[#C7DEFF] rounded-3xl px-10 py-20 max-w-x1 mx-auto shadow-md">
+            <div className="bg-[#C7DEFF] rounded-3xl px-10 py-20 max-w-x1 mx-auto shadow-md mb-10">
               <div className="bg-white rounded-2xl p-6 shadow-md max-w-[23rem] w-full mx-auto" >
                 <div className="flex justify-center gap-10 mb-6">
               </div>
@@ -237,13 +238,14 @@ const HomePage = () => {
                 <p className="text-center text-4xl font-bold">
                   {bmiResult || '00.00'}
                 </p>
-                <div className="text-center mt-2">
+                <div className="text-center mt-2 ">
                   {resultContent}
                 </div>
                 </div>
             </div>
           </div>
         </div>
+          <div id='kritiksaran' className=""><KritikSaranForm /> {/* Menggunakan komponen form di sini */}</div>
       </div>
     </div>
   );
