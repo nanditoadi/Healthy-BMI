@@ -197,8 +197,7 @@ const HomePage = () => {
             </h1>
             <p className="text-base/8 mb-7 ">Temukan <span className="font-semibold text-000000">Rekomendasi Khusus untuk Anda</span></p>
             <a href="#cekbmi" className="inline-flex items-center gap-2 bg-gradient-to-r from-[#F9EC7D] to-[#F5B100] hover:opacity-95 hover:scale-105 shadow-lg font-semibold px-6 py-3 
-             text-black rounded-full w-auto transition-all duration-300 ease-in-out 
-             hover:shadow-2xl ">
+             text-black rounded-full w-auto transition-all duration-300 ease-in-out hover:shadow-2xl ">
               Cek BMI Sekarang <i className="w-6 h-6 bg-black rounded-full flex items-center justify-center ri-arrow-right-wide-line text-white ms-1"></i>
             </a>
           </div>
