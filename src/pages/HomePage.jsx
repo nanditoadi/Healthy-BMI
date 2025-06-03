@@ -194,8 +194,8 @@ const HomePage = () => {
           </div>
           <div className="flex justify-center items-center gap-20">
             {/* Box BMI Calculator */}
-            <div className="bg-[#C7DEFF] rounded-3xl px-10 py-20 max-w-md mx-auto shadow-md">
-              <div className="bg-white rounded-2xl p-6 shadow-md">
+            <div className="bg-[#C7DEFF] rounded-3xl px-10 py-20 max-w-x1 mx-auto shadow-md">
+              <div className="bg-white rounded-2xl p-6 shadow-md max-w-[23rem] w-full mx-auto" >
                 <div className="flex justify-center gap-10 mb-6">
               </div>
 
@@ -230,7 +230,8 @@ const HomePage = () => {
                 >
                   HITUNG BMI
                 </button>
-
+            </div>
+            <div>
                 {/* Hasil */}
                 <p className="text-center font-medium">Hasil <strong>BMI</strong> Anda:</p>
                 <p className="text-center text-4xl font-bold">
