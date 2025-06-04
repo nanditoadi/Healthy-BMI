@@ -53,8 +53,8 @@ const Navbar = () => {
                 Cek BMI</a> 
             </li>
             <li className="flex items-center gap-3">
-              <i className="ri-send-plane-2-line text-3xl md:hidden block"></i>
-              <a href="#kritiksaran"className="font-medium opacity-75">
+              <i className="ri-send-plane-2-line text-3xl md:hidden block "></i>
+              <a href="#kritiksaran"className="font-medium opacity-75 ">
                 Kritik & Saran</a> 
             </li>
 

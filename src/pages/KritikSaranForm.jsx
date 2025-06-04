@@ -59,9 +59,11 @@ const KritikSaranForm = () => {
 
     return (
   // Container utama untuk halaman/section ini (opsional, untuk padding dan centering keseluruhan)
-  <div className="py-19 px-4 mt-10">
+  <div className="py-25 px-4 mt-24">
     {/* Container dua kolom */}
-    <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 lg:gap-12 items-start">
+    <div 
+    
+    className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 lg:gap-12 items-start">
 
       {/* Kolom Kiri: Form Kritik & Saran */}
       <div className="w-full md:w-3/5 lg:w-1/2 bg-white p-6 sm:p-8 rounded-lg shadow-xl">
@@ -140,15 +142,15 @@ const KritikSaranForm = () => {
       </div>
 
       {/* Kolom Kanan: Tempat untuk Gambar */}
-      <div className="w-full md:w-2/5 lg:w-1/2 mt-8 md:mt-0">
+      <div className="w-full md:w-2/5 lg:w-1/2 mt-8 md:mt-0 ">
         {/* Anda bisa mengganti div di bawah ini dengan tag <img> atau komponen gambar lainnya */}
-        <div className="rounded-lg h-auto md:h-full min-h-[300px] md:min-h-[500px] flex items-center justify-center p-6">
+        <div className="rounded-lg h-auto md:h-full min-h-[300px] md:min-h-[500px] flex items-center justify-center p-6 mt-20">
           {/* Contoh Placeholder Gambar */}
           <img
             // src="URL_GAMBAR_ANDA" // Ganti dengan URL gambar Anda
             src={komponenkritikImage} // Placeholder example
             alt="Deskripsi Gambar Anda"
-            className="max-w-full h-auto max-h-[450px] object-contain rounded"
+            className="max-w-full h-auto max-h-[450px] object-contain rounded "
           />
           {/* Atau teks jika belum ada gambar:
           <span className="text-gray-500 text-xl">Tempat Gambar Anda</span>

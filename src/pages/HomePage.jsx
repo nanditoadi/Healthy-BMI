@@ -179,7 +179,7 @@ const HomePage = () => {
   } else {
    resultContent = (
     <div className="text-center mt-2 px-1">
-      <p className="text-lg font-semibold text-gray-700 mb-0">
+      <p className="text-lg font-semibold text-gray-700 mb-0" >
         Masukkan tinggi badan dan berat badan Anda untuk menghitung BMI!
       </p>
     </div>
@@ -294,14 +294,14 @@ const HomePage = () => {
               </div>
             </div>
             {/* Box Hasil */}
-            <div className="bg-[#C7DEFF] rounded-3xl px-10 py-20 max-w-x1 mx-auto shadow-md">
+            <div className="bg-[#C7DEFF] rounded-3xl px-10 py-20 max-w-x1 mx-auto shadow-md mb-10">
                 <div className="text-center mt-2">
                   {resultContent}
                 </div>
             </div>
           </div>
         </div>
-          <div id='kritiksaran' className=""><KritikSaranForm /> {/* Menggunakan komponen form di sini */}</div>
+          <div id='kritiksaran' className="scroll-mt-[100px]"><KritikSaranForm /> {/* Menggunakan komponen form di sini */}</div>
       </div>
     </div>
   );
