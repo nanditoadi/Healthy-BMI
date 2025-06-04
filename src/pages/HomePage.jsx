@@ -202,7 +202,7 @@ const HomePage = () => {
             </a>
           </div>
           <div className="box">
-            <img src={HeroImage} alt="HeroImage" className="md:w-[500px] w-[400px] mx-auto md:m-0"/>
+            <img src={HeroImage} alt="HeroImage" className="md:w-[555px] w-[400px] mx-auto md:m-0"/>
           </div>
         </div>
 
@@ -225,7 +225,7 @@ const HomePage = () => {
             </p>
           </div>
           <div className="box md:order-1 order-2">
-            <img src={AboutImage} alt="About Image" className="lg:w-[230px] w-[150px] md:w-[220px] mx-auto"/>
+            <img src={AboutImage} alt="About Image" className="lg:w-[220px] w-[150px] md:w-[220px] mx-auto"/>
           </div>
         </div>
 

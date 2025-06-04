@@ -60,7 +60,7 @@ const Navbar = () => {
 
           </ul>
           <div className="Kontak flex items-center gap-2">
-            <a href="#" className="px-5 py-2 rounded-full text-black font-bold bg-[#C7DEFF] hover:bg-[#A6CBFF] transition-all" >Hubungi Kami</a>
+            <a href="#social" className="px-5 py-2 rounded-full text-black font-bold bg-[#C7DEFF] hover:bg-[#A6CBFF] transition-all" >Hubungi Kami</a>
             <i className="ri-menu-line text-3xl md:hidden block" onClick={handleClick}></i>
           </div>
         </div>

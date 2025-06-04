@@ -59,7 +59,7 @@ const KritikSaranForm = () => {
 
     return (
   // Container utama untuk halaman/section ini (opsional, untuk padding dan centering keseluruhan)
-  <div className="py-10 px-4 mt-10">
+  <div className="py-19 px-4 mt-10">
     {/* Container dua kolom */}
     <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 lg:gap-12 items-start">
 
