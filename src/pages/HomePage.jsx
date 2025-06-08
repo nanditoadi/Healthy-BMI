@@ -40,6 +40,48 @@ const HomePage = () => {
     }
   };
 
+
+  const handleKritikSaranSubmit = async (formData) => {
+    // Tampilkan status loading jika diperlukan, misalnya dengan state
+    // setLoading(true);
+
+    try {
+      // Mengirim data ke API endpoint yang sudah kita buat di Vercel
+      const response = await fetch('/api/submit-kritik', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        // Mengubah data dari form menjadi format JSON string
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        // Jika server merespons dengan error (status bukan 2xx)
+        // lempar error dengan pesan dari server
+        throw new Error(result.message || 'Gagal mengirim data. Silakan coba lagi.');
+      }
+
+      // Jika berhasil, tampilkan pesan sukses
+      alert('Sukses! ' + result.message);
+      return true; // Kembalikan true untuk menandakan sukses
+
+    } catch (error) {
+      // Jika terjadi error pada jaringan atau dari server
+      console.error('Submission error:', error);
+      alert('Error: ' + error.message);
+      return false; // Kembalikan false untuk menandakan gagal
+    
+    } finally {
+      // Sembunyikan status loading
+      // setLoading(false);
+    }
+  };
+
+
+
   let resultContent;
   if (bmiResult < 18.5 && bmiResult > 0) {
     resultContent = (
