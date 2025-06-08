@@ -2,91 +2,118 @@
 import express from 'express';
 import mysql from 'mysql2/promise';
 import cors from 'cors';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import path from 'path';
 import 'dotenv/config';
 
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
-// Clever Cloud (atau platform hosting lain) akan menyediakan port melalui process.env.PORT
-const port = process.env.PORT || 3306;
+const port = 3000; // Pastikan port ini konsisten dengan URL fetch di frontend
 
-app.use(cors()); // Memungkinkan request dari domain lain (frontend Vercel Anda)
-app.use(express.json()); // Mem-parsing body request JSON
-
-// --- START MODIFIKASI: Konfigurasi Database ---
-// Konfigurasi sekarang mengambil data dari Environment Variables
-// Sama seperti yang Anda atur di Vercel, Anda juga harus mengaturnya
-// di platform tempat Anda menghosting server.js ini (misalnya, di Clever Cloud).
 const dbConfig = {
-    host: process.env.DB_HOST ,
-    user: process.env.DB_USER ,
-    password: process.env.DB_PASSWORD ,
-    database: process.env.DATABASE,
-    port: process.env.DB_PORT,
-    ssl: {
-        rejectUnauthorized: true
-    }
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'kritik_saran',
+
 };
 // --- END MODIFIKASI ---
 
 let pool;
-try {
-    pool = mysql.createPool(dbConfig);
-    console.log("MySQL Connection Pool berhasil dibuat.");
-    // Tes koneksi awal saat server startup
-    const connectionTest = await pool.getConnection();
-    console.log('Berhasil terhubung ke database MySQL di Clever Cloud!');
-    connectionTest.release();
-} catch (error) {
-    console.error("GAGAL KONEK KE DATABASE:", error);
-    // Jika database gagal terkoneksi, server tidak bisa berfungsi dengan baik.
+
+/**
+ * Membuat dan menguji koneksi pool ke database MySQL.
+ * @returns {mysql.Pool} Objek pool koneksi jika berhasil.
+ * @throws {Error} Jika koneksi gagal.
+ */
+async function initializeDatabase() {
+    try {
+        pool = mysql.createPool(dbConfig);
+        const connection = await pool.getConnection();
+        console.log('✅ Berhasil terhubung ke database MySQL.');
+        connection.release();
+        return pool;
+    } catch (error) {
+        console.error('❌ Gagal terhubung ke database MySQL:', error);
+        throw error; // Melempar error untuk menghentikan startServer
+    }
 }
 
-// Rute untuk mengirim saran
-// Di frontend, Anda akan fetch ke: https://<URL-server-anda>/submit-saran
-app.post('/submit-saran', async (req, res) => {
-    // Diambil dari kode /api/submit-kritik.js Anda, ini sudah bagus.
-    const { nama, email, kritik } = req.body;
+// --- Middleware ---
+app.use(cors());       // Mengaktifkan Cross-Origin Resource Sharing
+app.use(express.json()); // Mem-parse body permintaan sebagai JSON
 
-    if (!nama || !email || !kritik) {
-        return res.status(400).json({ message: 'Semua field (Nama, Email, dan Kritik) wajib diisi.' });
+// --- Rute (Routes) ---
+
+/**
+ * Rute utama untuk menyapa pengguna.
+ */
+app.get('/', (req, res) => {
+    res.send('Server API untuk Kritik & Saran sedang berjalan!');
+});
+
+/**
+ * Rute untuk menerima dan menyimpan data kritik & saran.
+ */
+app.post('/submit-saran', async (req, res) => {
+    const { nama, email, pesan } = req.body;
+
+    // 1. Validasi Input
+    if (!nama || !email || !pesan) {
+        return res.status(400).json({ message: 'Semua field (nama, email, pesan) wajib diisi.' });
     }
-    
-    // Pastikan pool sudah terbuat sebelum melanjutkan
-    if (!pool) {
-      console.error("Pool koneksi tidak tersedia.");
-      return res.status(500).json({ message: 'Kesalahan konfigurasi server.' });
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        return res.status(400).json({ message: 'Format email tidak valid.' });
     }
 
     let connection;
     try {
+        // 2. Dapatkan koneksi dan eksekusi query
         connection = await pool.getConnection();
-
-        // Menggunakan kolom 'pesan' sesuai struktur tabel Anda
         const sql = "INSERT INTO kritik_saran (nama, email, pesan) VALUES (?, ?, ?)";
-        const values = [nama, email, kritik]; // 'kritik' dari form dimasukkan ke kolom 'pesan'
-        
-        await connection.execute(sql, values);
+        const [result] = await connection.execute(sql, [nama, email, pesan]);
 
-        res.status(201).json({ message: 'Kritik dan saran Anda berhasil dikirim. Terima kasih!' });
+        console.log(`Data baru ditambahkan dengan ID: ${result.insertId}`);
+        res.status(201).json({ message: 'Saran Anda berhasil dikirim. Terima kasih!' });
 
     } catch (error) {
+        // 3. Penanganan Error
         console.error('Error saat menyimpan data:', error);
-        res.status(500).json({ message: 'Terjadi kesalahan pada server saat menyimpan data.' });
+        res.status(500).json({
+            message: 'Terjadi kesalahan pada server saat memproses permintaan Anda.',
+            error: error.code // Mengirim kode error untuk debugging
+        });
     } finally {
+        // 4. Selalu lepaskan koneksi
         if (connection) {
-            connection.release(); // Melepaskan koneksi kembali ke pool
+            connection.release();
         }
     }
 });
 
-app.get('/', (req, res) => {
-    res.send('Server Node.js untuk Kritik & Saran berjalan dan siap menerima data!');
-});
+// --- Inisialisasi Server ---
 
-app.listen(port, () => {
-    console.log(`Server berjalan di port ${port}`);
-    if (pool) {
-        console.log(`Terhubung ke database di host '${dbConfig.host}'.`);
-    } else {
-        console.warn("PERINGATAN: Server berjalan TETAPI GAGAL terhubung ke database.");
+/**
+ * Fungsi utama untuk memulai aplikasi.
+ * Menginisialisasi database terlebih dahulu, kemudian menjalankan server Express.
+ */
+async function startServer() {
+    try {
+        await initializeDatabase();
+        app.listen(PORT, () => {
+            console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
+            console.log(`Terhubung ke database '${dbConfig.database}' di host '${dbConfig.host}'.`);
+        });
+    } catch (error) {
+        console.error("⛔ GAGAL memulai server karena masalah database.");
+        process.exit(1); // Keluar dari proses jika database tidak dapat dijangkau
     }
-});
+}
+
+startServer();

@@ -29,7 +29,7 @@ const KritikSaranForm = () => {
     }
 
     try {
-      const response = await fetch('/submit-saran', {
+      const response = await fetch('http://localhost:3000/submit-saran', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
