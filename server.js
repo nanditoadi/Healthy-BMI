@@ -2,6 +2,7 @@
 import express from 'express';
 import mysql from 'mysql2/promise';
 import cors from 'cors';
+import 'dotenv/config';
 
 const app = express();
 // Clever Cloud (atau platform hosting lain) akan menyediakan port melalui process.env.PORT

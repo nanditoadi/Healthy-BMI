@@ -16,6 +16,7 @@ const HomePage = () => {
   const [bmiResult, setBmiResult] = useState(null);
   const whiteBoxClass = "bg-white rounded-xl p-5 shadow-md mb-5";
   const secondaryTextColor = "text-slate-700";
+  
 
   // const calculateBMI = (weight, height) => {
   //   // Convert height from cm to m
@@ -47,7 +48,7 @@ const HomePage = () => {
 
     try {
       // Mengirim data ke API endpoint yang sudah kita buat di Vercel
-      const response = await fetch('/api/submit-kritik', {
+      const response = await fetch('/server.js', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
