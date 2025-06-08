@@ -25,7 +25,7 @@ const dbConfig = {
     ssl: {
       // Opsi SSL ini seringkali dibutuhkan oleh layanan database cloud
       // untuk memastikan koneksi yang terenkripsi dan aman.
-      rejectUnauthorized: true,
+    rejectUnauthorized: true,
     }
 };
 // --- END MODIFIKASI ---
