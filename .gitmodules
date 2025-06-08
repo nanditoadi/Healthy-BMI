@@ -1,0 +1,3 @@
+[submodule "Healthy-BMI"]
+	path = Healthy-BMI
+	url = https://github.com/nanditoadi/Healthy-BMI.git
