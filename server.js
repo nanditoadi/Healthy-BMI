@@ -1,119 +1,105 @@
-// server.js (ES Modules - Ditingkatkan untuk Clever Cloud)
+// server.js (ES Modules - Debugging Ditingkatkan)
 import express from 'express';
 import mysql from 'mysql2/promise';
-import cors from 'cors';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
 import path from 'path';
-import 'dotenv/config';
+import cors from 'cors';
 
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const _filename = fileURLToPath(import.meta.url);
+const _dirname = dirname(_filename);
 
 const app = express();
 const port = 3000; // Pastikan port ini konsisten dengan URL fetch di frontend
+
+// Middleware
+app.use(cors()); // PENTING: Panggil cors() SEBELUM rute Anda
+app.use(express.json());
 
 const dbConfig = {
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'kritik_saran',
-
-};
-// --- END MODIFIKASI ---
+    database: 'kritik_saran'
+    };
 
 let pool;
-
-/**
- * Membuat dan menguji koneksi pool ke database MySQL.
- * @returns {mysql.Pool} Objek pool koneksi jika berhasil.
- * @throws {Error} Jika koneksi gagal.
- */
-async function initializeDatabase() {
-    try {
-        pool = mysql.createPool(dbConfig);
-        const connection = await pool.getConnection();
-        console.log('✅ Berhasil terhubung ke database MySQL.');
-        connection.release();
-        return pool;
-    } catch (error) {
-        console.error('❌ Gagal terhubung ke database MySQL:', error);
-        throw error; // Melempar error untuk menghentikan startServer
-    }
+try {
+    pool = mysql.createPool(dbConfig);
+    console.log("MySQL Connection Pool berhasil dibuat.");
+    // Tes koneksi awal
+    const connectionTest = await pool.getConnection();
+    console.log('Berhasil terhubung ke database MySQL untuk tes awal!');
+    connectionTest.release();
+} catch (error) {
+    console.error("Gagal membuat atau menguji MySQL Connection Pool:", error);
+    // Jika pool gagal dibuat, server mungkin tidak berguna, tapi kita tetap jalankan
+    // agar bisa merespons dengan error jika ada permintaan.
+    // Atau pertimbangkan: process.exit(1);
 }
 
-// --- Middleware ---
-app.use(cors());       // Mengaktifkan Cross-Origin Resource Sharing
-app.use(express.json()); // Mem-parse body permintaan sebagai JSON
-
-// --- Rute (Routes) ---
-
-/**
- * Rute utama untuk menyapa pengguna.
- */
-app.get('/', (req, res) => {
-    res.send('Server API untuk Kritik & Saran sedang berjalan!');
-});
-
-/**
- * Rute untuk menerima dan menyimpan data kritik & saran.
- */
+// Rute
 app.post('/submit-saran', async (req, res) => {
+    console.log('Menerima permintaan POST ke /submit-saran'); // Logging #1
+    console.log('Body permintaan:', req.body); // Logging #2
+
     const { nama, email, pesan } = req.body;
 
-    // 1. Validasi Input
     if (!nama || !email || !pesan) {
-        return res.status(400).json({ message: 'Semua field (nama, email, pesan) wajib diisi.' });
+        console.log('Validasi gagal: Field tidak lengkap');
+        return res.status(400).json({ message: 'Semua field harus diisi!' });
     }
+
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-        return res.status(400).json({ message: 'Format email tidak valid.' });
+        console.log('Validasi gagal: Format email tidak valid');
+        return res.status(400).json({ message: 'Format email tidak valid!' });
+    }
+
+    if (!pool) {
+        console.error("FATAL: Connection pool tidak tersedia saat memproses permintaan.");
+        return res.status(500).json({ message: 'Kesalahan server: Pool koneksi database tidak terinisialisasi.' });
     }
 
     let connection;
     try {
-        // 2. Dapatkan koneksi dan eksekusi query
+        console.log('Mencoba mendapatkan koneksi dari pool...'); // Logging #3
         connection = await pool.getConnection();
-        const sql = "INSERT INTO kritik_saran (nama, email, pesan) VALUES (?, ?, ?)";
-        const [result] = await connection.execute(sql, [nama, email, pesan]);
+        console.log('Koneksi database berhasil didapatkan.'); // Logging #4
 
-        console.log(`Data baru ditambahkan dengan ID: ${result.insertId}`);
-        res.status(201).json({ message: 'Saran Anda berhasil dikirim. Terima kasih!' });
+        const sql = "INSERT INTO kritik_saran (nama, email, pesan) VALUES (?, ?, ?)";
+        console.log('Menjalankan SQL:', sql, 'dengan data:', [nama, email, pesan]); // Logging #5
+        const [result] = await connection.execute(sql, [nama, email, pesan]);
+        console.log('Data berhasil dimasukkan, ID:', result.insertId); // Logging #6
+
+        res.status(201).json({ message: 'Kritik dan saran Anda berhasil dikirim. Terima kasih!' });
 
     } catch (error) {
-        // 3. Penanganan Error
-        console.error('Error saat menyimpan data:', error);
-        res.status(500).json({
-            message: 'Terjadi kesalahan pada server saat memproses permintaan Anda.',
-            error: error.code // Mengirim kode error untuk debugging
-        });
+        console.error('Error di rute /submit-saran:', error); // Logging #7 (SANGAT PENTING)
+        // Pastikan selalu mengirim respons JSON
+        let errorMessage = 'Terjadi kesalahan pada server saat menyimpan data.';
+        if (error.code) {
+            errorMessage += ` (Kode: ${error.code})`;
+        }
+        res.status(500).json({ message: errorMessage, error: error.message });
     } finally {
-        // 4. Selalu lepaskan koneksi
         if (connection) {
+            console.log('Melepaskan koneksi database.'); // Logging #8
             connection.release();
         }
     }
 });
 
-// --- Inisialisasi Server ---
+app.get('/', (req, res) => {
+    res.send('Server Node.js untuk Kritik & Saran berjalan!');
+});
 
-/**
- * Fungsi utama untuk memulai aplikasi.
- * Menginisialisasi database terlebih dahulu, kemudian menjalankan server Express.
- */
-async function startServer() {
-    try {
-        await initializeDatabase();
-        app.listen(PORT, () => {
-            console.log(`🚀 Server berjalan di http://localhost:${PORT}`);
-            console.log(`Terhubung ke database '${dbConfig.database}' di host '${dbConfig.host}'.`);
-        });
-    } catch (error) {
-        console.error("⛔ GAGAL memulai server karena masalah database.");
-        process.exit(1); // Keluar dari proses jika database tidak dapat dijangkau
+app.listen(port, () => {
+    console.log(`Server Node.js berjalan di http://localhost:${port}`);
+    if (pool) {
+        console.log(`Terhubung ke database MySQL '${dbConfig.database}' di host '${dbConfig.host}'.`);
+    } else {
+        console.warn("PERINGATAN: Server berjalan TETAPI pool koneksi database GAGAL diinisialisasi.");
     }
-}
-
-startServer();
+});

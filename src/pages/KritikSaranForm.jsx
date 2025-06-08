@@ -29,33 +29,33 @@ const KritikSaranForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/submit-saran', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    body: JSON.stringify({ nama, email, pesan }), // Pastikan field sesuai dengan backend
-  });
+        const response = await fetch('http://localhost:3000/submit-saran', { // Pastikan route ini sesuai dengan backend Node.js Anda
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ nama, email, pesan }),
+        });
 
       const result = await response.json();
 
-      if (response.ok) {
-        setMessage(result.message);
-        setMessageType('success');
-        // Kosongkan form setelah berhasil
-        setNama('');
-        setEmail('');
-        setPesan('');
-      } else {
-        setMessage(result.message || 'Terjadi kesalahan saat mengirim saran.');
-        setMessageType('error');
-      }
+        if (response.ok) {
+            setMessage(result.message);
+            setMessageType('success');
+            // Kosongkan form setelah berhasil
+            setNama('');
+            setEmail('');
+            setPesan('');
+        } else {
+            setMessage(result.message || 'Terjadi kesalahan saat mengirim saran.');
+            setMessageType('error');
+        }
     } catch (error) {
-      console.error('Error submitting form:', error);
-      setMessage('Tidak dapat terhubung ke server. Silakan coba lagi nanti.');
-      setMessageType('error');
+        console.error('Error submitting form:', error);
+        setMessage('Tidak dapat terhubung ke server. Silakan coba lagi nanti.');
+        setMessageType('error');
     }
-  };
+};
 
     return (
   // Container utama untuk halaman/section ini (opsional, untuk padding dan centering keseluruhan)
