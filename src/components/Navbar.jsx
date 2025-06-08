@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import logonavbarImage from "../assets/logonavbar.png";
 
 
 const Navbar = () => {
@@ -33,7 +34,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="navbar-box flex items-center justify-between">
           <div className="logo flex items-center gap-3">
-          <img src="/logonavbar.png" alt="Healthy BMI Logo" className="w-10 h-10 object-contain align-middle" />
+          <img src={logonavbarImage} alt="Healthy BMI Logo" className="w-10 h-10 object-contain align-middle" />
             <h1 className="sm:text-2xl text-xl font-bold">Healthy BMI</h1>
           </div>
           <ul 
