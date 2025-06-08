@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+
 const Navbar = () => {
   const [show, setshow] = useState(false);
   const [scroll, setScroll] = useState(false);
