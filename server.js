@@ -8,17 +8,7 @@ const app = express();
 // Clever Cloud (atau platform hosting lain) akan menyediakan port melalui process.env.PORT
 const port = process.env.PORT || 3306;
 
-// Middleware
-const corsOptions = {
-    origin: [
-    'https://healthy-bmi-ori.vercel.app', // Domain production
-    'http://localhost:3000' // Development
-    ],
-    methods: ['POST', 'GET'],
-    credentials: true
-};
-
-app.use(cors(corsOptions)); // Memungkinkan request dari domain lain (frontend Vercel Anda)
+app.use(cors()); // Memungkinkan request dari domain lain (frontend Vercel Anda)
 app.use(express.json()); // Mem-parsing body request JSON
 
 // --- START MODIFIKASI: Konfigurasi Database ---
@@ -26,11 +16,11 @@ app.use(express.json()); // Mem-parsing body request JSON
 // Sama seperti yang Anda atur di Vercel, Anda juga harus mengaturnya
 // di platform tempat Anda menghosting server.js ini (misalnya, di Clever Cloud).
 const dbConfig = {
-    host: process.env.DB_HOST || "mysql.railway.internal",
-    user: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD || "WhYeuJfEbOZHgVTUCYYVxBPkdCcqXfVO",
-    database: process.env.DATABASE || "railway",
-    port: process.env.DB_PORT || 3306,
+    host: process.env.DB_HOST ,
+    user: process.env.DB_USER ,
+    password: process.env.DB_PASSWORD ,
+    database: process.env.DATABASE,
+    port: process.env.DB_PORT,
     ssl: {
         rejectUnauthorized: true
     }

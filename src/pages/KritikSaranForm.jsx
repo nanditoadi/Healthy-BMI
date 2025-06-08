@@ -29,11 +29,11 @@ const KritikSaranForm = () => {
     }
 
     try {
-      const response = await fetch('https://app-99c08889-5cf5-448b-9cb6-8c2d0cd149d6.cleverapps.io/submit-saran', {
+      const response = await fetch('/submit-saran', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-     },
+      },
     body: JSON.stringify({ nama, email, pesan }), // Pastikan field sesuai dengan backend
   });
 
