@@ -29,7 +29,7 @@ const KritikSaranForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/submit-saran', { // Pastikan route ini sesuai dengan backend Node.js Anda
+      const response = await fetch('http://localhost:3305/submit-saran', { // Pastikan route ini sesuai dengan backend Node.js Anda
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

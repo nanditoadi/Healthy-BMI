@@ -3,7 +3,9 @@ import express from 'express';
 import mysql from 'mysql2/promise';
 import path from 'path';
 import cors from 'cors';
+import dotenv from 'dotenv';
 
+dotenv.config();
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
@@ -11,17 +13,19 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
-const port = 3000; // Pastikan port ini konsisten dengan URL fetch di frontend
+const port = process.env.PORT || 3000; // Pastikan port ini konsisten dengan URL fetch di frontend
 
 // Middleware
-app.use(cors()); // PENTING: Panggil cors() SEBELUM rute Anda
+app.use(cors({
+    origin: process.env.FRONTEND_URL
+})); // PENTING: Panggil cors() SEBELUM rute Anda
 app.use(express.json());
 
 const dbConfig = {
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'kritik_saran'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 };
 
 let pool;
