@@ -5,7 +5,7 @@ import cors from 'cors';
 
 const app = express();
 // Clever Cloud (atau platform hosting lain) akan menyediakan port melalui process.env.PORT
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3306;
 
 // Middleware
 app.use(cors()); // Memungkinkan request dari domain lain (frontend Vercel Anda)
